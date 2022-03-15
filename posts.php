@@ -47,9 +47,7 @@
 ?>
 
 <main role="main" class="container">
-
     <div class="row">
-
         <div class="col-sm-8 blog-main">
 
             <?php
@@ -65,7 +63,6 @@
             <?php 
                 }
             ?>
-
         </div>
 
         <?php include('sidebar.php') ?>
