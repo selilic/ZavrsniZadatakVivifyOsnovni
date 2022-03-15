@@ -1,3 +1,19 @@
+<?php
+    $servername = "127.0.0.1";
+    $username = "root";
+    $password = "";
+    $dbname = "blog";
+
+    try {
+        $connection = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    }
+    catch(PDOException $e)
+    {
+        echo $e->getMessage();
+    }
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -21,7 +37,62 @@
 <body>
     
 <?php include('header.php') ?>
-<?php include('sidebar.php') ?>
+
+<main role="main" class="container">
+
+    <div class="row">
+
+        <div class="col-sm-8 blog-main">
+
+            <?php
+                if (isset($_GET['post_id'])) {
+                    $sql = "SELECT * FROM posts WHERE posts.id = {$_GET['post_id']}";
+                    $statement = $connection->prepare($sql);
+                    $statement->execute();
+                    $statement->setFetchMode(PDO::FETCH_ASSOC);
+                    $post = $statement->fetch();
+
+                    $sql_comments = "SELECT * FROM comments WHERE comments.post_id = {$_GET['post_id']}";
+                    $statement = $connection->prepare($sql_comments);
+                    $statement->execute();
+                    $statement->setFetchMode(PDO::FETCH_ASSOC);
+                    $comments = $statement->fetchAll();
+            ?>
+
+                <div class="blog-post">
+                    <h2 class="blog-post-title"><a href="single-post.php?post_id=<?php echo($post['id']); ?>"><?php echo($post['title']); ?></a></h2>
+                    <p class="blog-post-meta"><?php echo DateTime::createFromFormat('Y-m-j', $post['created_at'])->format('M j, Y');?> by <a href="#"><?php echo($post['author']); ?></a></p>
+                    <p><?php echo($post['body']); ?></p>
+                </div>
+
+                <h3>Comments</h3>
+                <ul>
+                    <?php 
+                        foreach ($comments as $comment) {
+                    ?>
+                        <li class="single-comment">
+                            <p>posted by: <a href="#"><?php echo $comment['author']; ?></a></p> 
+                            <p><?php echo $comment['text']; ?></p>
+                        </li>
+                        <hr/>
+                    <?php
+                        }
+                    ?>
+                </ul>
+
+            <?php
+                } else {
+                    echo 'post_id not passed through URL';
+                }
+            ?>
+        </div>
+
+        <?php include('sidebar.php') ?>
+
+    </div>
+</main>
+
+
 <?php include('footer.php') ?>
 
 </body>
