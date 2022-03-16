@@ -57,6 +57,7 @@
                     <button type="submit" name="submit">Submit</button>
                 </form>
             </div>
+            
         </div>
 
         <?php include('sidebar.php') ?>
