@@ -2,7 +2,6 @@
     require_once('db.php'); 
     $sql_posts = "SELECT p.*, a.firstname, a.lastname, a.gender FROM posts AS p
                   INNER JOIN author as a ON p.author_id = a.id ORDER BY created_at DESC";
-    // $sql_posts = "SELECT * FROM posts ORDER BY created_at DESC";
     $posts = getDataFromServer($sql_posts, $connection);
 ?>
 
