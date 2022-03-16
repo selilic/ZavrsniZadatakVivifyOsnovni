@@ -1,3 +1,5 @@
+<?php include_once('db.php'); ?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -19,9 +21,49 @@
 </head>
 
 <body>
-    
+
+<?php
+    if (isset($_POST['submit'])) {
+        $title = $_POST['title'];
+        $body = $_POST['body'];
+        $author = $_POST['author'];
+        $currentDate = date("Y-m-d h:i");
+
+        $sql_newpost = "INSERT INTO posts (title, body, author, created_at) 
+                        VALUES ('$title', '$body', '$author', '$currentDate');";
+
+        $statement = $connection->prepare($sql_newpost);
+        $statement->execute();
+    }
+?>
+
 <?php include('header.php') ?>
-<?php include('sidebar.php') ?>
+
+<main role="main" class="container">
+
+    <div class="row">
+
+        <div class="col-sm-8 blog-main">
+
+            <div class="blog-post">
+                <form action="create-post.php" method="POST" id="postsForma" class="test">
+                    <label for="title">Title</label><br/>
+                    <input type="text" name="title" placeholder="Title of the Post" id="titlePost" required>  <br/><br/>            
+                    <label for="body">Body</label><br/>
+                    <textarea name="body" placeholder ="Post" rows = "10" id="bodyPost" required></textarea><br/><br/>
+                    <label for="author">Author</label><br/>
+                    <input type="text" name="author" placeholder="Author of the Post" id="authorPost" required>  <br/><br/>
+
+                    <button type="submit" name="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <?php include('sidebar.php') ?>
+
+    </div>
+</main>
+
 <?php include('footer.php') ?>
 
 </body>
