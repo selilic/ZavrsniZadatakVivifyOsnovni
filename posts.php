@@ -1,6 +1,6 @@
 <?php 
     require_once('db.php');
-    var_dump($_POST);
+    
     if (isset($_POST['author']) && $_POST['author'] > 0) {
         $sql_posts = "SELECT p.*, a.firstname, a.lastname, a.gender FROM posts AS p
                       INNER JOIN author as a ON p.author_id = a.id WHERE p.author_id = {$_POST['author']}

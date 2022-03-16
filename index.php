@@ -40,9 +40,9 @@
             <?php 
                 }
             ?>
-        </select>
+        </select> <br/><br/>
         <button type="submit" name="submit">Select author</button>
-    </form>
+    </form> <br/><br/>
 </div>
 
 <main role="main" class="container">
