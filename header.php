@@ -17,4 +17,9 @@
             <p class="lead blog-description small">An example blog template built with Bootstrap.</p>
         </div>
     </div>
+
+    <div>
+        <a href="redirect.php"><button>Create post</button><a/>
+    </div>
+    
 </header>
