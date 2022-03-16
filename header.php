@@ -11,6 +11,10 @@
         </div>
     </div>
 
+    <div>
+        <a href="redirect.php"><button>Create post</button><a/>
+    </div>
+
     <div class="blog-header">
         <div class="container">
             <h1 class="blog-title small">The Bootstrap Blog</h1>
@@ -18,8 +22,4 @@
         </div>
     </div>
 
-    <div>
-        <a href="redirect.php"><button>Create post</button><a/>
-    </div>
-    
 </header>
