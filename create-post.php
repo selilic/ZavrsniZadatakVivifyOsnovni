@@ -57,7 +57,7 @@
                     <label for="body">Body</label><br/>
                     <textarea name="body" placeholder ="Post" rows = "10" id="bodyPost" required></textarea><br/><br/>
                     <label>Select one Author</label><br/>
-                    <select name="author_id" id="selectedAuthorId">
+                    <select name="author_id" id="selectedAuthorId" required>
                         <option selected disabled>Select one Author</option>
                         <?php 
                             foreach ($authors as $author) {

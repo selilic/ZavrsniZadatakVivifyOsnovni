@@ -1,3 +1,10 @@
+<?php 
+    require_once('db.php');
+
+    $sql_allauthors = "SELECT * FROM author";
+    $authors = getDataFromServer($sql_allauthors, $connection);
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -21,6 +28,22 @@
 <body>
 
 <?php include('header.php') ?>
+
+<div class='filterAuthorDiv'>
+    <form action="index.php" method="POST">
+        <select name="author" id="filterAuthor" required>
+            <option value="0">All authors</option>
+            <?php 
+                foreach ($authors as $author) { 
+            ?>
+                <option value="<?php echo $author['id']; ?>"><?php echo "{$author['firstname']} {$author['lastname']}"; ?></option>
+            <?php 
+                }
+            ?>
+        </select>
+        <button type="submit" name="submit">Select author</button>
+    </form>
+</div>
 
 <main role="main" class="container">
 
