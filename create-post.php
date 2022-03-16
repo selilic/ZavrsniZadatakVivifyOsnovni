@@ -22,15 +22,20 @@
 
 <body>
 
+<?php 
+    $sql_allauthors = "SELECT * FROM author";
+    $authors = getDataFromServer($sql_allauthors, $connection); 
+?>
+
 <?php
     if (isset($_POST['submit'])) {
         $title = $_POST['title'];
         $body = $_POST['body'];
-        $author = $_POST['author'];
         $currentDate = date("Y-m-d h:i");
+        $author_id = $_POST['author_id'];
 
-        $sql_newpost = "INSERT INTO posts (title, body, author, created_at) 
-                        VALUES ('$title', '$body', '$author', '$currentDate');";
+        $sql_newpost = "INSERT INTO posts (title, body, author_id, created_at) 
+                        VALUES ('$title', '$body', '$author_id', '$currentDate');";
 
         $statement = $connection->prepare($sql_newpost);
         $statement->execute();
@@ -46,18 +51,29 @@
         <div class="col-sm-8 blog-main">
 
             <div class="blog-post">
-                <form action="create-post.php" method="POST" id="postsForma" class="test">
+                <form action="create-post.php" method="POST" id="createPostForm">
                     <label for="title">Title</label><br/>
                     <input type="text" name="title" placeholder="Title of the Post" id="titlePost" required>  <br/><br/>            
                     <label for="body">Body</label><br/>
                     <textarea name="body" placeholder ="Post" rows = "10" id="bodyPost" required></textarea><br/><br/>
-                    <label for="author">Author</label><br/>
-                    <input type="text" name="author" placeholder="Author of the Post" id="authorPost" required>  <br/><br/>
+                    <label>Select one Author</label><br/>
+                    <select name="author_id" id="selectedAuthorId">
+                        <option selected disabled>Select one Author</option>
+                        <?php 
+                            foreach ($authors as $author) {
+                                $genderClass = $author['gender'] === 'M' ? 'author-male' : 'author-female';
+                        ?>     
+                            <option class="<?php echo $genderClass; ?>" value="<?php echo $author['id']; ?>"><?php echo $author['firstname'] . ' ' . $author['lastname']; ?></option>
+                        <?php
+                            }
+                        ?>
+                    </select>
+                    <br><br>
 
                     <button type="submit" name="submit">Submit</button>
                 </form>
             </div>
-            
+
         </div>
 
         <?php include('sidebar.php') ?>
