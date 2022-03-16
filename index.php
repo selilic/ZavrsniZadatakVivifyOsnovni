@@ -45,6 +45,15 @@
     </form> <br/><br/>
 </div>
 
+<div class='sortPostsDiv'>
+    <form class="sortPostsByDate" action="index.php" method="POST">
+        <button type="submit" name="newestPosts" id="newestPosts">&uarr;</button>
+    </form>
+    <form class="sortPostsByDate" action="index.php" method="POST">
+        <button type="submit" name="oldestPosts" id="oldestPosts">&darr;</button>
+    </form>
+</div>
+
 <main role="main" class="container">
 
     <div class="row">

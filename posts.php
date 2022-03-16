@@ -1,15 +1,30 @@
 <?php 
     require_once('db.php');
+
+    var_dump($_POST);
     
     if (isset($_POST['author']) && $_POST['author'] > 0) {
         $sql_posts = "SELECT p.*, a.firstname, a.lastname, a.gender FROM posts AS p
-                      INNER JOIN author as a ON p.author_id = a.id WHERE p.author_id = {$_POST['author']}
-                      ORDER BY created_at DESC;";
+                      INNER JOIN author as a ON p.author_id = a.id WHERE p.author_id = {$_POST['author']}";
     } else {
         $sql_posts = "SELECT p.*, a.firstname, a.lastname, a.gender FROM posts AS p
-                      INNER JOIN author as a ON p.author_id = a.id ORDER BY created_at DESC";
+                      INNER JOIN author as a ON p.author_id = a.id";
     }
+
     $posts = getDataFromServer($sql_posts, $connection);
+
+    if (isset($_POST['newestPosts'])) {
+        usort($posts, function($first, $second){
+            return $first['created_at'] < $second['created_at'];
+        });
+    }
+
+    if (isset($_POST['oldestPosts'])) {
+        usort($posts, function($first, $second){
+            return $first['created_at'] > $second['created_at'];
+        });
+    }
+
 ?>
 
 <?php
