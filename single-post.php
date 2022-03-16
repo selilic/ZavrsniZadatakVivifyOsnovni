@@ -38,6 +38,7 @@
                     $sql_post = "SELECT p.*, a.firstname, a.lastname, a.gender FROM posts AS p
                                  INNER JOIN author as a ON p.author_id = a.id WHERE p.id = {$_GET['post_id']};";
                     $post = getDataFromServer($sql_post, $connection, false);
+                    $genderClass = $post['gender'] === 'M' ? 'author-male' : 'author-female';
 
                     $sql_comments = "SELECT * FROM comments WHERE comments.post_id = {$_GET['post_id']}";
                     $comments = getDataFromServer($sql_comments, $connection);
@@ -45,7 +46,7 @@
 
                 <div class="blog-post">
                     <h2 class="blog-post-title"><a href="single-post.php?post_id=<?php echo($post['id']); ?>"><?php echo($post['title']); ?></a></h2>
-                    <p class="blog-post-meta"><?php echo DateTime::createFromFormat('Y-m-j', $post['created_at'])->format('M j, Y');?> by <a href="#"><?php echo $post['firstname'] . ' ' . $post['lastname']; ?></a></p>
+                    <p class="blog-post-meta"><?php echo DateTime::createFromFormat('Y-m-j', $post['created_at'])->format('M j, Y');?> by <a class="<?php echo $genderClass;?>" href="#"><?php echo $post['firstname'] . ' ' . $post['lastname']; ?></a></p>
                     <p><?php echo($post['body']); ?></p>
                 </div>
 
