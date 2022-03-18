@@ -79,8 +79,6 @@
 
     <?php echo "let phpSortType ='$sortType';"; ?>
 
-    console.log(phpSortType);
-
     if (phpSortType === 'ASC') {
         ascBtn.classList.add("btnGreen");
         descBtn.classList.remove("btnGreen");
