@@ -1,7 +1,7 @@
 <?php 
     require_once('db.php');
 
-    $sortType;
+    $sortType = 'Not sorted';
 
     if (isset($_POST['author']) && $_POST['author'] > 0) {
         $sql_posts = "SELECT p.*, a.firstname, a.lastname, a.gender FROM posts AS p
@@ -13,25 +13,22 @@
 
     $posts = getDataFromServer($sql_posts, $connection);
 
-    if (isset($_POST['newestPosts'])) {
-        usort($posts, function($first, $second){
-            return $first['created_at'] < $second['created_at'];
-        });
-
-        $sortType = 'DESC';
-    }
-
-    if (isset($_POST['oldestPosts'])) {
+    if (isset($_POST['ascBtn'])) {
         usort($posts, function($first, $second){
             return $first['created_at'] > $second['created_at'];
         });
 
         $sortType = 'ASC';
-
     }
 
-    var_dump($_POST);
+    if (isset($_POST['descBtn'])) {
+        usort($posts, function($first, $second){
+            return $first['created_at'] < $second['created_at'];
+        });
 
+        $sortType = 'DESC';
+
+    }
 ?>
 
 <?php

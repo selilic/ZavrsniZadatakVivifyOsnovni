@@ -1,10 +1,3 @@
-<?php 
-    require_once('db.php');
-
-    $sql_allauthors = "SELECT * FROM author";
-    $authors = getDataFromServer($sql_allauthors, $connection);
-?>
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -47,10 +40,10 @@
 
 <div class='sortPostsDiv'>
     <form class="sortPostsByDate" action="index.php" method="POST">
-        <button type="submit" name="newestPosts" id="newestPosts">&uarr;</button>
+        <button type="submit" name="ascBtn" id="ascBtn">&uarr;</button>
     </form>
     <form class="sortPostsByDate" action="index.php" method="POST">
-        <button type="submit" name="oldestPosts" id="oldestPosts">&darr;</button>
+        <button type="submit" name="descBtn" id="descBtn">&darr;</button>
     </form>
 </div>
 
@@ -81,19 +74,21 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <script>
-    let btnUp = document.querySelector('#newestPosts');
-    let btnDown = document.querySelector('#oldestPosts');
+    let descBtn = document.querySelector('#descBtn');
+    let ascBtn = document.querySelector('#ascBtn');
 
     <?php echo "let phpSortType ='$sortType';"; ?>
 
+    console.log(phpSortType);
+
     if (phpSortType === 'ASC') {
-        btnDown.classList.add("btnGreen");
-        btnUp.classList.remove("btnGreen");
+        ascBtn.classList.add("btnGreen");
+        descBtn.classList.remove("btnGreen");
     }
 
     if (phpSortType === 'DESC') {
-        btnUp.classList.add("btnGreen");
-        btnDown.classList.remove("btnGreen");
+        descBtn.classList.add("btnGreen");
+        ascBtn.classList.remove("btnGreen");
     }
 </script>
 
