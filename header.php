@@ -1,3 +1,10 @@
+<?php 
+    require_once('db.php');
+
+    $sql_allauthors = "SELECT * FROM author";
+    $authors = getDataFromServer($sql_allauthors, $connection);
+?>
+
 <header>
     <div class="blog-masthead navBackground">
         <div class="container">
