@@ -78,5 +78,24 @@
 
 <?php include('footer.php') ?>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+    let btnUp = document.querySelector('#newestPosts');
+    let btnDown = document.querySelector('#oldestPosts');
+
+    <?php echo "let phpSortType ='$sortType';"; ?>
+
+    if (phpSortType === 'ASC') {
+        btnDown.classList.add("btnGreen");
+        btnUp.classList.remove("btnGreen");
+    }
+
+    if (phpSortType === 'DESC') {
+        btnUp.classList.add("btnGreen");
+        btnDown.classList.remove("btnGreen");
+    }
+</script>
+
 </body>
 </html>
