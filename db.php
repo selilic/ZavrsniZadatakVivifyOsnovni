@@ -22,4 +22,10 @@
         }
         return $statement->fetch();
     }
+
+    function deletePostFromDatabase($id, $author_id, $connection){
+        $sql = "DELETE FROM posts WHERE id = {$id} AND author_id = {$author_id};";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+    }
 ?>

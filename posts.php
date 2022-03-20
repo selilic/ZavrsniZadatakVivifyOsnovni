@@ -27,8 +27,16 @@
         });
 
         $sortType = 'DESC';
-
     }
+
+    if (isset($_GET['post_id']) && isset($_GET['author_id'])) {  
+        $id = $_GET['post_id'];
+        $author_id = $_GET['author_id'];
+        $sql_deleteRow = "DELETE FROM posts WHERE id = '$id' AND author_id = '$author_id'";
+        $statement = $connection->prepare($sql_deleteRow);
+        $statement->execute();
+        header('Location: index.php');
+   } 
 ?>
 
 <?php
@@ -38,7 +46,11 @@
         <h2 class="blog-post-title"><a href="single-post.php?post_id=<?php echo $post['id']; ?>"><?php echo $post['title']; ?></a></h2>
         <p class="blog-post-meta"><?php echo DateTime::createFromFormat('Y-m-j', $post['created_at'])->format('M j, Y');?> by <a href="#"><?php echo $post['firstname'] . ' ' . $post['lastname']; ?></a></p>
         <p><?php echo$post['body']; ?></p>
+        
+        <button class="edit <?php echo $post['id']; ?> <?php echo $post['author_id']; ?>" <?php if($post['author_id'] === $selectedAuthorId) {echo 'style="visibility:visible;"';} else {echo 'style="visibility:hidden;"';} ?> >Edit</button>
+
+        <a class="delete" <?php if($post['author_id'] === $selectedAuthorId) {echo 'style="visibility:visible;"';} else {echo 'style="visibility:hidden;"';} ?> href="index.php?post_id=<?php echo $post['id']; ?>&author_id=<?php echo $post['author_id']; ?>">Delete</a>
     </div>
 <?php 
     }
-?>    
+?>
