@@ -4,22 +4,14 @@
     $sql_allauthors = "SELECT * FROM author";
     $authors = getDataFromServer($sql_allauthors, $connection);
 
-    echo '<pre>';
-    var_dump($authors[1]);
-    echo '</pre>';
-
     $selectedAuthorId = '';
     $selectedId = '';
 ?>
 
 <?php 
-    var_dump($_POST);
     if (isset($_POST['selectAuthor'])) {
         $sql_postsFromAuthor = "SELECT * FROM posts WHERE author_id = {$_POST['selectedAuthorId']}";
         $postsFromAuthor = getDataFromServer($sql_postsFromAuthor, $connection);
-        echo '<br/>';
-        var_dump($postsFromAuthor);
-        echo '<br/>';
 
         $selectedAuthorId = $_POST['selectedAuthorId'];
         $selectedId = [];
@@ -27,16 +19,7 @@
         foreach($postsFromAuthor as $postFromAuthor) {
             $selectedId[] = $postFromAuthor['id'];
         }
-
-        echo '<br/>';
-        var_dump($selectedId);
-        echo '<br/>';
     }
-
-    echo '<br/>';
-    var_dump($selectedId);
-    echo '<br/>';
-    var_dump($selectedAuthorId);
 ?>
 
 <header>
